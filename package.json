@@ -4,7 +4,7 @@
   "description": "basic jenkins api support",
   "main": "index.js",
   "scripts": {
-    "test": "lab"
+    "test": "lab -m 0"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,13 @@
     "url": "https://github.com/plucky-ci/plucky-jenkins/issues"
   },
   "homepage": "https://github.com/plucky-ci/plucky-jenkins#readme",
-  "dependencies": {
+  "devDependencies": {
     "code": "^4.0.0",
-    "lab": "^11.1.0",
-    "plucky-rest": "0.0.1"
+    "lab": "^11.1.0"
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "boom": "^4.2.0",
+    "request": "^2.76.0"
   }
 }
