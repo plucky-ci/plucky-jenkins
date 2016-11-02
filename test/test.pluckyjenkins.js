@@ -9,9 +9,7 @@ const before = lab.before;
 const after = lab.after;
 const expect = Code.expect;
 
-const {
-	PluckyJenkins,
-} = require('../src/pluckyjenkins');
+const ExecuteJob = require('../src/executejob');
 
 const noop = ()=>{};
 
@@ -31,7 +29,7 @@ const mockStartJob = (jobName, params) => {
 
 describe('PluckyJenkins', ()=>{
 	it('should return return 0 and a result string', (done) => {
-		const jenkins = new PluckyJenkins();	
+		const jenkins = new ExecuteJob();	
 		const jobName = 'test';
 		const jobStatus1 = mockJobStatus(jobName)
 			.once().reply(200, {'inQueue':[], 'queueItem': [], 'builds': []});
@@ -59,7 +57,7 @@ describe('PluckyJenkins', ()=>{
 	});
 
 	it('should return return 0 and a result string when requesting buildWithParams', (done) => {
-		const jenkins = new PluckyJenkins();	
+		const jenkins = new ExecuteJob();	
 		const jobName = 'test';
 		const jobStatus1 = mockJobStatus(jobName)
 			.once().reply(200, {'inQueue':[], 'queueItem': [], 'builds': []});
@@ -88,7 +86,7 @@ describe('PluckyJenkins', ()=>{
 	});
 
 	it('should return return 1 and a status if jenkins returns bad requests', (done) => {
-		const jenkins = new PluckyJenkins();	
+		const jenkins = new ExecuteJob();	
 		const jobName = 'test';
 		const jobStatus1 = mockJobStatus(jobName)
 			.once().reply(400, 'bad request');

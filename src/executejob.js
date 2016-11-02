@@ -3,7 +3,7 @@ const exec = require('child_process').exec;
 const execFile = require('child_process').execFile;
 const Jenkins = require('./jenkins');
 
-class PluckyJenkins extends Task {
+class ExecuteJob extends Task {
 	execute(state, next) {
 		const {
 			params
@@ -23,4 +23,4 @@ class PluckyJenkins extends Task {
 	}
 }
 
-module.exports = { PluckyJenkins };
+module.exports = ExecuteJob;

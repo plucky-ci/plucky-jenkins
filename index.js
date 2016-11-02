@@ -1,5 +1,7 @@
-const {
-  PluckyJenkins
-} = require('./src/pluckyjenkins');
+const ExecuteJob = require('./src/executejob');
+const ExecuteJobsParallel = require('./src/executejobsparallel');
 
-module.exports = PluckyJenkins;
+module.exports = {
+  ExecuteJob,
+  ExecuteJobsParallel
+};
