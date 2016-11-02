@@ -13,11 +13,11 @@ class ExecuteJobsParallel extends Task {
 		}
 		const promiseList = [];
 		params.jobs.forEach((job) => {
-			const jenkins = new Jenkins(job.params);
+			const jenkins = new Jenkins(job);
 			promiseList.push(new Promise((resolve, reject) => {
 				jenkins.executeJob({jobName:job.jobName, params: params.params}, (error, result) => {
 					if(error) {
-						reject({status: error.output});
+						return reject({status: error.output});
 					}
 					resolve({result});
 				});
@@ -25,9 +25,9 @@ class ExecuteJobsParallel extends Task {
 		});
 
 		Promise.all(promiseList).then((result) => {
-			resolve(0, {result});
+			next(0, {result});
 		}).catch((status) => {
-			reject(1, {status});
+			next(1, {status});
 		});
 	}
 }
