@@ -56,4 +56,48 @@ describe('PluckyJenkins', ()=>{
 			done();
 		});
 	});
+
+	it('should return return 1 and a status string', (done) => {
+		const jenkins = new ExecuteJobsParallel();	
+		const jobName = 'test';
+
+		jenkins.execute({params: {
+			jobs: []
+		}}, (code, val) => {
+			expect(code).to.equal(1);
+			expect(val.status).to.be.a.string();
+			done();
+		});
+	});
+
+	it('should return return 1 and a status of a job fail', (done) => {
+		const jenkins = new ExecuteJobsParallel();	
+		const jobName = 'test';
+		const jobStatus1 = mockJobStatus(jobName)
+			.once().reply(200, {'inQueue':[], 'queueItem': [], 'builds': []});
+		const jobStart = mockStartJob('test', {});
+		const jobStatus2 = mockJobStatus(jobName)
+			.twice().reply(200, {'builds': [{url:'http://test.jenkins.com/badbuildrequest/'}]});
+		const jobStatus3 = nock('http://test.jenkins.com')
+			.get(`/badbuildrequest/api/json`).
+			reply(200, {result: 'FAILURE'});
+
+		jenkins.execute({params: {
+			jobs: [{ 
+				url: 'http://test.jenkins.com', 
+				auth: {
+					type: "userpass",
+					"userpass": {
+						"username": "admin",
+						"password": "very_secret"
+					}
+				},
+				jobName: jobName
+			}]
+		}}, (code, val) => {
+			expect(code).to.equal(1);
+			expect(val.status).to.be.a.string();
+			done();
+		});
+	});
 });

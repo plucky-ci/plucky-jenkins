@@ -8,7 +8,7 @@ class ExecuteJobsParallel extends Task {
 		const {
 			params
 		} = state;
-		if(params.jobs === 0) {
+		if(params.jobs.length === 0) {
 			return next(1, {status: "must have at least 1 job"});
 		}
 		const promiseList = [];
@@ -17,7 +17,10 @@ class ExecuteJobsParallel extends Task {
 			promiseList.push(new Promise((resolve, reject) => {
 				jenkins.executeJob({jobName:job.jobName, params: params.params}, (error, result) => {
 					if(error) {
-						return reject({status: error.output});
+						return reject(error.output);
+					}
+					if(result === 'failed') {
+						return reject(`${job.jobName} failed to complete`);
 					}
 					resolve({result});
 				});
