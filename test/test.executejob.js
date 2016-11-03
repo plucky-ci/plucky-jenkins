@@ -37,7 +37,7 @@ describe('PluckyJenkins', ()=>{
 		const jobStatus2 = mockJobStatus(jobName)
 			.twice().reply(200, {'inQueue':[], 'queueItem': [], 'builds': []});
 
-		jenkins.execute({ 
+		jenkins.handler({ 
 			params: { 
 				url: 'http://test.jenkins.com', 
 				auth: {
@@ -65,7 +65,7 @@ describe('PluckyJenkins', ()=>{
 		const jobStatus2 = mockJobStatus(jobName)
 			.twice().reply(200, {'inQueue':[], 'queueItem': [], 'builds': []});
 
-		jenkins.execute({ 
+		jenkins.handler({ 
 			params: { 
 				url: 'http://test.jenkins.com', 
 				auth: {
@@ -91,7 +91,7 @@ describe('PluckyJenkins', ()=>{
 		const jobStatus1 = mockJobStatus(jobName)
 			.once().reply(400, 'bad request');
 
-		jenkins.execute({ 
+		jenkins.handler({ 
 			params: { 
 				url: 'http://test.jenkins.com', 
 				auth: {

@@ -4,7 +4,7 @@ const execFile = require('child_process').execFile;
 const Jenkins = require('./jenkins');
 
 class ExecuteJobsParallel extends Task {
-	execute(state, next) {
+	handler(state, next) {
 		const {
 			params
 		} = state;

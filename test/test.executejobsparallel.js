@@ -37,7 +37,7 @@ describe('PluckyJenkins', ()=>{
 		const jobStatus2 = mockJobStatus(jobName)
 			.twice().reply(200, {'inQueue':[], 'queueItem': [], 'builds': []});
 
-		jenkins.execute({params: {
+		jenkins.handler({params: {
 			jobs: [{ 
 				url: 'http://test.jenkins.com', 
 				auth: {
@@ -61,7 +61,7 @@ describe('PluckyJenkins', ()=>{
 		const jenkins = new ExecuteJobsParallel();	
 		const jobName = 'test';
 
-		jenkins.execute({params: {
+		jenkins.handler({params: {
 			jobs: []
 		}}, (code, val) => {
 			expect(code).to.equal(1);
@@ -82,7 +82,7 @@ describe('PluckyJenkins', ()=>{
 			.get(`/badbuildrequest/api/json`).
 			reply(200, {result: 'FAILURE'});
 
-		jenkins.execute({params: {
+		jenkins.handler({params: {
 			jobs: [{ 
 				url: 'http://test.jenkins.com', 
 				auth: {
