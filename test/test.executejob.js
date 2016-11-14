@@ -76,7 +76,7 @@ describe('PluckyJenkins', ()=>{
 					}
 				},
 				jobName: jobName,
-				params: {console_VERSION:'1.0.0'}
+				console_VERSION:'1.0.0'
 			}
 		}, (code, val) => {
 			expect(code).to.equal(0);

@@ -13,7 +13,7 @@ class ExecuteJob extends Task {
 		}
 
 		const jenkins = new Jenkins(params);
-		jenkins.executeJob({jobName:params.jobName, params: params.params}, (error, result) => {
+		jenkins.executeJob({jobName:params.jobName, params: params}, (error, result) => {
 			if(error) {
 				return next(1, {status: error.output});
 			}
