@@ -27,6 +27,7 @@
     "async": "^2.1.2",
     "boom": "^4.2.0",
     "nock": "^9.0.2",
+    "plucky-pipeliner": "0.0.4",
     "request": "^2.76.0"
   }
 }
